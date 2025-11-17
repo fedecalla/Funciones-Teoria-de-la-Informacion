@@ -7,6 +7,10 @@ def informacionFuente(probabilidades):
     inf = [math.log2(1/p) for p in probabilidades]
     return inf
 
+def informacionBaseN(probabilidades, base):
+    inf = [(-math.log(p, base)) for p in probabilidades]
+    return inf
+
 #ENTROPIA DE UNA FUENTE
 def entropiaFuente(probabilidades, informaciones):
     ent = 0
@@ -17,7 +21,7 @@ def entropiaFuente(probabilidades, informaciones):
 #ENTROPIA BINARIA
 def entropiaBinaria(w):
     prob = [w, 1-w]
-    return entropiaFuente(prob, informacionFuente(prob))
+    return entropiaFuente(prob, informacionBaseN(prob, 2))
 
 
 #GENERA ALFABETO Y PROBABILIDADES A PARTIR DE UNA CADENA
@@ -64,3 +68,15 @@ def entropiaFuenteMarkov(matriz, vectorEstacionario):
             sum1 = sum1 + matriz[i][j] * math.log(1/matriz[i][j], 2)
         ent += sum1 * vectorEstacionario[i]
     return ent
+
+
+def getr(palabras):
+    alfabeto = []
+    for palabra in palabras:
+        for letra in palabra:
+            if letra not in alfabeto:
+                alfabeto.append(letra)
+    return len(alfabeto)
+
+
+

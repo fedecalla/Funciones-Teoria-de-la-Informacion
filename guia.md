@@ -1,0 +1,43 @@
+## GUIA DE TEORIA DE LA INFORMACION
+
+Canales:
+
+**Matriz del canal** [_Genera la matriz del canal partiendo de una cadena de entrada y una de salida_](canales.py#L18)
+**Probabilidades a priori** [_P(ai) calcula las probabilidades a priori (o probabilidades marginales) de los símbolos de entrada._](canales.py#L57)
+**Probabilidades a posteriori** [_P(ai/bj) Devuelve las probabilidades de los simbolos de salida partiendo de las probabilidades a priori y la matriz del canal_](canales.py#L80)
+**Matriz Posteriori** [_Devuelve una matriz con las probabilidades a posteriori del canal partiendo de las probabilidades a priori y la matriz del canal_](canales.py#L97)
+**Matriz Conjunta** [_P(ai, bj) Devuelve una matriz con las probabilidades de los eventos simultáneos_](canales.py#L150)
+**Entropias a posteriori** [_H(A/Bj) Devuelve una lista con las entropias a priori a partir de las probabilidades a priori y la matriz de prob. condicionales_](canales.py#L188)
+**Ruido de un canal** [_H(A/B) calcula la Entropía Condicional de la Fuente dada la Salida (H(X|Y)), también conocida como la Equivocación o Ruido del Canal._](canales.py#L223)
+**Perdida de un canal** [_calcula la Entropía Condicional de la Salida dada la Entrada (H(Y|X)), también conocida como la Pérdida o Equivocación de la Fuente._](canales.py#L266)
+**Entropia Afin de un canal** [_El código calcula la Entropía de la Salida (H(Y))_](canales.py#L299)
+**Informacion mutua de un canal** [_MIDE I(X,Y)_](canales.py#L335)
+**Canal sin ruido** [_Determina si un canal tiene ruido o no_](canales.py#L378)
+**Canal determinante** [_Determina si un canal es determinante o no_](canales.py#L412)
+**Canal en serie** [_Retorna la matriz resultado del producto matricial canal1 . canal2_](canales.py#L440)
+**Columnas reductibles** [_Verifica si las columnas c1 y c2 de la matriz canal pueden combinarse en una reducción suficiente (son proporcionales o idénticas)_](canales.py#L486)
+**Canal determinante para combinar** [_Genera la matriz determinante necesaria para combinar las columnas c1 y c2 de la matriz 'canal'._](canales.py#L519)
+**Canal reducido** [_Realiza todas las reducciones suficientes posibles sobre una matriz de canal. Devuelve la matriz del canal reducido._](canales.py#L550)
+**Canal uniforme** [_Determina si un canal es uniforme o no_](canales.py#L578)
+**Capacidad determinante** [_Calcula la capacidad de un canal determinante. (C)_](canales.py#L590)
+**Capacidad sin ruido** [_Calcula la capacidad de un canal sin ruido (C)_](canales.py#L600)
+**Capacidad Uniforme** [_Calcula la capacidad de un canal uniforme (C)_](canales.py#L610)
+**Capacidad Binaria** [_Estima la capacidad de un canal binario (C)_](canales.py#L631)
+**Probabilidad de error** [_Calcula la probabilidad de error (Pe) aplicando la regla de decisión de máxima posibilidad_](canales.py#L680)
+
+Codigos:
+
+**1er Teorema Shannon-Fano** [_Verifica si un codigo cumple el primer teorema de Shannon_](codigos.py#L148)
+**Codigo de Huffman** [_Genera un codigo de Huffman basandose en las probabilidades_](codigos.py#L178)
+**Codigo de Shannon-Fano** [_Genera códigos binarios para cada símbolo usando el algoritmo de Shannon–Fano_](codigos.py#L226)
+**Genera msg codificado** [_Genera un bytearray que contiene el mensaje codificado_](codigos.py#L287)
+**Decodifica mensaje** [_Dada una secuencia de bytes, decodifica y retorna el mensaje original_](codigos.py#L318)
+**Tasa de compresion** [_Tasa de compresion = N:1_](codigos.py#L351)
+**Compresion RLC** [_Comprime un mensaje usando RLC y devuelve un bytearray_](codigos.py#L369)
+**Distancia de Hamming** [_Devuelve la distancia de Hamming (minima) entre las cadenas (caracteres codificados) de una lista_](codigos.py#L415)
+**Errores detectables** [_Devuelve la cantidad de errores detectables_](codigos.py#L437)
+**Errores corregibles** [_Devuelve la cantidad de errores corregibles_](codigos.py#L441)
+**ASCII con paridad** [_Retorna un byte que represente el código ASCII (7 bits) y utilice el bit menos significativo para almacenar la paridad del código_](codigos.py#L456)
+**Byte con errores** [_detecta si un byte con paridad tiene un error de 1 bit_](codigos.py#L487)
+**Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L537)
+**Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L618)
