@@ -293,23 +293,23 @@ def perdida(prob_entrada, matriz_canal):
 
 # El código calcula la Entropía de la Salida (H(Y)).
 # La Entropía de Salida es una medida de la incertidumbre promedio de los símbolos que se reciben a través del canal, después de que la fuente de entrada ha sido afectada por la matriz de transición.
-# El primer bloque de código calcula las probabilidades de que se reciba cada símbolo (P(Y)) utilizando la Ley de Probabilidad Total (P(Y) = sumatoria de( P(X)P(Y|X))). Este paso es crucial, ya que la entropía de la salida solo depende de la distribución de probabilidad de la salida Y.
-# El segundo bloque de código utiliza la lista prob_salida (P(Y)) para calcular la Entropía de Shannon H(Y): H(Y) = - sumatoria (j) de (P(Yj).log2(P(Yj)))
+# Llama a matrizConjunta(matriz, prob_entrada) para obtener todas las probabilidades conjuntas
+# Inicializa el acumulador H_A_b en 0
+# Recorre cada probabilidad conjunta p
+# Ignora probabilidades cero
+# Suma el término p·log2(1/p). Esto es exactamente el aporte de la probabilidad p a la entropía conjunta, según la fórmula: entropía = suma de p * log₂(1/p)
+# Devuelve la entropía total H_A_b queda siendo la entropía conjunta de las dos variables aleatorias.
+# La función calcula la entropía conjunta sumando el aporte de cada probabilidad de la matriz conjunta, ignorando los ceros.
 
-def entropiaAfin(prob_entrada, matriz_canal):
-    # Calculo P(Y_j)
-    prob_salida = [0 for _ in range(len(matriz_canal[0]))]
-    for j in range(len(matriz_canal[0])):
-        for i in range(len(matriz_canal)):
-            prob_salida[j] += prob_entrada[i] * matriz_canal[i][j]
+def entropiaFin(matriz, prob_entrada):
+    P_a_b= matrizConjunta(matriz, prob_entrada)
+    H_A_b = 0
+    for fila in P_a_b:
+        for p in fila:
+            if p > 0:
+                H_A_b += p * math.log2(1/p)
+    return H_A_b
 
-    # Calculo entropía H(Y)
-    H_Y = 0
-    for p in prob_salida:
-        if p > 0:
-            H_Y -= p * math.log2(p)
-
-    return H_Y
 
 
 
@@ -664,33 +664,70 @@ def capacidad_binaria(canal, paso):
 
 
 
-# Calcula la probabilidad de error aplicando la regla de decisión de máxima posibilidad. Parámetros: p_entrada: lista con las probabilidades a priori P(x_i)
+# Calcula la probabilidad de error aplicando la regla de decisión de máxima posibilidad. Parámetros: 
+# Parámetros
+#    priors : list[float]
+#        Lista con las probabilidades a priori de los símbolos de entrada X.
+#        Debe tener longitud m.
+#    channel_matrix : list[list[float]]
+#        Matriz del canal P(y_j | x_i) de tamaño m x n,
+#        donde:
+#          - i recorre las filas (símbolos de entrada x_i)
+#          - j recorre las columnas (símbolos de salida y_j)
 # canal: matriz con P(y_j | x_i) 
 # Retorna: probabilidad de error promedio
 
 # EXPLICACION:
-# Se recorre cada salida yj.
-# Para cada posible entrada xi, se calcula el producto: P(xi​)P(yj​∣xi​)
-# Se elige el mayor de esos valores (la decisión correcta según la regla de máxima posibilidad).
-# La suma de esos máximos sobre todas las salidas da la probabilidad total de decisión correcta.
-# Finalmente: Pe​=1−P(decision correcta)
+
+# Para cada salida posible del canal (cada columna j de la matriz):
+# mira todos los símbolos de entrada i
+# busca cuál tiene mayor probabilidad condicional P(yj∣xi)
+# guarda ese i en la lista decision[j]
+
+# Calcular la probabilidad de acierto
+# Recorre todas las combinaciones (i, j):
+# si la decisión para la salida j coincide con el símbolo i,
+# suma su contribución: P(x_i) * P(y_j | x_i)
+# Es decir, suma las probabilidades de todos los pares (entrada x_i, salida y_j) en los que la decisión es correcta.
+# El resultado es la probabilidad total de acierto usando ML.
+# Como la probabilidad total debe sumar 1: p_error = 1 – p_correct
+
+# En una frase
+#La función: construye la decisión óptima ML, calcula la probabilidad de acertarle al símbolo transmitido, devuelve la probabilidad de equivocarse.
 
 
 
-def prob_error_max_posibilidad(p_entrada, canal):
-    num_entradas = len(canal)
-    num_salidas = len(canal[0])
-    prob_correcta = 0
+def prob_error_max(prob_priori, matriz_canal):
+    m = len(prob_priori)
+    n = len(matriz_canal[0])  # cantidad de salidas
 
-    for j in range(num_salidas):
-        # Calcular P(x_i) * P(y_j|x_i) para cada posible entrada
-        productos = [p_entrada[i] * canal[i][j] for i in range(num_entradas)]
-        # Tomar el máximo → decisión correcta
-        prob_correcta += max(productos)
+    # 1) Construir la regla ML: para cada salida y_j elegir el x_i que maximiza P(y_j|x_i)
+    # decision[j] = índice i del símbolo decidido cuando se observa y_j
+    decision = [0] * n
+    for j in range(n):
+        max_prob = matriz_canal[0][j]
+        best_i = 0
+        for i in range(1, m):
+            if matriz_canal[i][j] > max_prob:
+                max_prob = matriz_canal[i][j]
+                best_i = i
+        decision[j] = best_i
 
-    # Probabilidad de error = 1 - probabilidad de decisión correcta
-    return 1 - prob_correcta
+    # 2) Calcular probabilidad de acierto:
+    #    sumar P(x_i) * P(y_j | x_i) para aquellos (i, j) donde la decisión coincide con i
+    p_correct = 0.0
+    for i in range(m):
+        for j in range(n):
+            if decision[j] == i:
+                p_correct += prob_priori[i] * matriz_canal[i][j]
+
+    # 3) Probabilidad de error
+    p_error = 1.0 - p_correct
+    return p_error
 
 
+priors = [4/15, 3/15, 8/15]
+canal = [[0.6,0.3,0.1],[0.1, 0.8, 0.1], [0.3, 0.3, 0.4]]
+print(prob_error_max(priors, canal))
 
 
