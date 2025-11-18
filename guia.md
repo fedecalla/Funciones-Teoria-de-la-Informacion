@@ -39,8 +39,8 @@ Codigos:
 **Errores corregibles** [_Devuelve la cantidad de errores corregibles_](codigos.py#L441)
 **ASCII con paridad** [_Retorna un byte que represente el código ASCII (7 bits) y utilice el bit menos significativo para almacenar la paridad del código_](codigos.py#L456)
 **Byte con errores** [_detecta si un byte con paridad tiene un error de 1 bit_](codigos.py#L487)
-**Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L537)
-**Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L618)
+**Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L538)
+**Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L613)
 
 **Apuntes:**
 

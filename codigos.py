@@ -534,6 +534,7 @@ def byteTieneErrores(byte_con_paridad):
 # Ajusta el bit 0 del PL para que la paridad total del PL también sea par.
 
 # agrega el byte PL
+
 def codifica_con_paridades(cadena):
     bytes_codificados = []
 
@@ -542,31 +543,25 @@ def codifica_con_paridades(cadena):
         codigo = ord(c) & 0x7F  # 7 bits ASCII
         bits_en_1 = bin(codigo).count('1')
         paridad_vertical = bits_en_1 % 2  # 1 si hay cantidad impar
-        paridad_vertical = 0 if paridad_vertical == 0 else 1  # paridad par
         byte_con_paridad = (codigo << 1) | paridad_vertical
         bytes_codificados.append(byte_con_paridad)
 
     # Calculo paridad longitudinal (por columnas)
     pl = 0
     for bit_pos in range(8):
-        # contar cuántos 1 hay en esta columna
         unos = sum((b >> bit_pos) & 1 for b in bytes_codificados)
         if unos % 2 != 0:  # si es impar, el bit de PL debe ser 1
             pl |= (1 << bit_pos)
 
-    # Calculo paridad cruzada (bit de paridad del PL)
-    bits_en_1 = bin(pl).count('1')
+    # Calculo paridad cruzada (bit 0 del PL) sobre los bits 1..7 de PL
+    bits_en_1 = bin(pl >> 1).count('1')
     paridad_cruzada = bits_en_1 % 2  # 1 si impar
-    paridad_cruzada = 0 if paridad_cruzada == 0 else 1  # paridad par
     pl = (pl & 0xFE) | paridad_cruzada  # bit 0 = paridad cruzada
 
     # Agrego PL al final 
     bytes_codificados.append(pl)
 
     return bytearray(bytes_codificados)
-
-
-
 
 
 
@@ -659,5 +654,3 @@ def decodifica_con_paridades(data):
     return mensaje
 
 
-
-    
