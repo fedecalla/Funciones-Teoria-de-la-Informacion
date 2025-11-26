@@ -4,6 +4,11 @@ from fuente import generaPalabra
 
 # Calcula el vector estacionario de una cadena de Markov dada su matriz de transición
 # La matriz de transición es una lista de listas, donde cada sublista representa las probabilidades
+# en una cadena de markov si dejas pasar suficiente tiempo, el sistema tiende a estabilizarse en un "equilibrio" donde las probabilidades de estar en cada estado
+# ya no cambian, aunque el sistema siga saltando de un estado a otro. Este equilibrio se representa con el vector estacionario.
+# inicializa el vector estacionario
+# el codigo simula el paso del tiempo multiplicando el vector estacionario por la matriz de transición repetidamente
+# el algoritmo termina cuando el cambio entre iteraciones es menor que 1e-10 o si se alcanzan las 10000 iteraciones
 def vectorEstaconario(matriz):
     n = len(matriz)
     pi = [1.0/n] * n
@@ -21,7 +26,14 @@ def vectorEstaconario(matriz):
     return pi
 
 
+
+
+
 # Dada una cadena de caracteres que representa un mensaje emitido por una fuente, devuelve una lista con su alfabeto y su matriz de transición.
+# "Si estoy en la letra 'a', hay un X% de probabilidad de que la siguiente sea una 'n'"
+# recorre la cadena y extrae el alfabeto
+# cuenta las transiciones desde a hasta b, acumulando la probabilidad en la matriz
+# se normalizan las filas de la matriz para que sumen 1
 def generaMat(cadena):
     alfabeto = []
     for i in cadena:
@@ -41,7 +53,17 @@ def generaMat(cadena):
     return alfabeto, mat
 
 
+
+
+
+
 # Genera una palabra de longitud dada a partir de un alfabeto y sus matriz de transición
+# Elige el primer símbolo del mensaje al azar, busca en la matriz la fila correspondiente a la letra actual. Esa fila contiene las probabilidades condicionales específicas para el siguiente paso.
+# Si llegamos a un estado "pozo" (un símbolo que apareció al final del texto de entrenamiento pero nunca en el medio, por lo que no tiene transiciones salientes), la suma de su fila sería 0.
+# Para evitar que el programa falle, le asigna probabilidades uniformes ([1/n, 1/n...]) para poder saltar a cualquier otro lado y seguir generando texto
+# Llama a una función auxiliar (presumiblemente similar a random.choices o la anterior generaMensaje) pasándole las probabilidades dinámicas de esa fila específica.
+
+
 def generaPalabra2(alfabeto, mat, longitud):
     n = len(alfabeto)
     palabra = ""
@@ -55,7 +77,15 @@ def generaPalabra2(alfabeto, mat, longitud):
         palabra = palabra + letra
     return palabra
 
+
+
+
+
+
 # Comprueba si una matriz de transición corresponde a una fuente de memoria nula
+# determina si la fuente, aunque esté modelada como Markov, en realidad se comporta como una Fuente de Memoria Nula
+# Fuente con Memoria: Las filas son distintas. Saber dónde estás (i) cambia las probabilidades de a dónde vas (j).
+# Fuente de Memoria Nula: Todas las filas son idénticas. No importa en qué estado estuvieras antes (si en i o en k), la probabilidad de que salga el símbolo j es siempre la misma. El pasado no influye en el futuro
 def esMemoriaNula(matriz, tolerancia):
     fila = matriz[0]
     i = 0

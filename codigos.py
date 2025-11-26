@@ -4,6 +4,10 @@ import heapq
 from fuente import *
 
 ##VERIFICA SI UN CODIGO ES NO SINGULAR
+# Singular -> no tiene elementos repetidos (palabras)
+# Objetivo: Determinar si todas las palabras del código son únicas. Un código es "No Singular" si cada símbolo de la fuente se asigna a una palabra de código distinta.
+# Utiliza dos bucles while anidados para comparar cada palabra de la lista con todas las demás palabras de la misma lista.
+# Si encuentra al menos una coincidencia (dos palabras iguales en posiciones distintas), cambia la variable cumple a False y detiene la búsqueda inmediatamente
 def esNoSingular(palabras):
     cumple = True
     n = len(palabras)
@@ -17,7 +21,17 @@ def esNoSingular(palabras):
         i += 1
     return cumple
 
+
+
+
+
+
+
 ##VERIFICA SI UN CODIGO ES INSTANTANEO
+# un código es instantáneo si ninguna palabra del código es prefijo (el inicio) de otra palabra del código.
+# permite decodificar el mensaje paso a paso sin tener que esperar a recibir más bits
+# La función recorre la lista comparando todas las palabras entre sí (pares i y j)
+# toma la palabra i y la compara con un "recorte" de la palabra j. Si son iguales, entonces i es prefijo de j.
 def esInstantaneo(palabras):
     cumple = True
     n = len(palabras)
@@ -31,7 +45,17 @@ def esInstantaneo(palabras):
         i += 1
     return cumple
 
+
+
+
+
+
+
+
 ##VERIFICA SI UN CODIGO ES UNIVOCO
+# verifica si, al recibir una cadena larga de bits, existe una única forma posible de separarla en palabras del código
+# El algoritmo funciona analizando los restos que quedan cuando una palabra es prefijo de otra. Ejemplo: teniendo 0 y 01, el residuo es 1.
+# el algoritmo verifica si ese residuo 1 es el inicio de otra palabra. Si esos restos se encadenan y terminan formando una palabra válida del código original, enotnces no es UD
 
 def esUnivoco(palabras):
     # Algoritmo de Sardinas-Patterson
@@ -70,7 +94,15 @@ def esUnivoco(palabras):
         U = nuevo
     return True
 
+
+
+
+
+
+
 ##DEVUELVE EL ALFABETO DEL CODIGO DADAS SUS PALABRAS
+# por cada palabra, si la letra i no esta en el alfabeto, la agrega
+
 def getAlfabetoCodigo(palabras):
     alfabeto = []
     for palabra in palabras:
@@ -79,12 +111,23 @@ def getAlfabetoCodigo(palabras):
                 alfabeto.append(letra)
     return alfabeto
 
+
+
+
 ##DEVUELVE LAS LONGITUDES DE CADA PALABRA DEL CODIGO
+# devuelve la cantidad de caracteres que tiene cada palabra en una lista
 def getLongitudes(palabras):
     longitudes = [len(palabra) for palabra in palabras]
     return longitudes
 
+
+
+
 ##VERIFICA SI UN CODIGO CUMPLE LA INECUACION DE KRAFT
+# verifica la ecuacion: sumatoria desde i = 1 hasta n de (r elevado a la -li)  <= 1 donde r es el tamaño del alfabeto, li es la longitud de la palabra codigo i
+# si cumple significa que las longitudes propuestas son válidas para construir un código instantáneo (o unívocamente decodificable). No garantiza que las palabras actuales formen un código instantáneo
+# si no cumple significa que las longitudes no pueden formar un codigo instantaneo o univocamente decodificable
+
 def inecuacionKraft(palabras):
     alfabeto = getAlfabetoCodigo(palabras)
     longitudes = getLongitudes(palabras)
@@ -99,7 +142,12 @@ def inecuacionKraft(palabras):
         return False
     
 
+
+    
+
 ##DEVUELVE LA LONGITUD MEDIA DE UN CODIGO
+# usa la formula: Lm = sumatoria desde i = 1 hasta q de pi * li siendo pi la probabilidad de aparicion del simbolo i, y li la longitud de la palabra codigo i
+# esta funcion es util para evaluar la eficiencia de un codigo utilizando el primer teorema de Shannon
 def longitudMedia(palabras_codigo, probabilidades):
     q = len(palabras_codigo)
     longitud = 0
@@ -113,6 +161,10 @@ def longitudMedia(palabras_codigo, probabilidades):
 
 
 ##VERIFICA SI UN CODIGO ES COMPACTO
+# la funcion recorre palabra por palabra verificando si la longitud de cada palabra es menor o igual que el techo del logaritmo en base 2 de 1 sobre la probabilidad de esa palabra
+# si todas las palabras cumplen la condicion, el codigo es compacto
+# compacto: Todas las palabras tienen una longitud menor o igual a su techo de información
+# si no es compacto: El código es ineficiente. Al menos un símbolo tiene una palabra asignada mucho más larga de lo que su probabilidad justifica
 def esCompacto(palabras_codigo, probabilidades):
     cumple = True
 
@@ -130,9 +182,6 @@ def esCompacto(palabras_codigo, probabilidades):
 def generaMensaje(palabras_codigo, probabilidades, longitud):
     mensaje = random.choices(palabras_codigo, weights=probabilidades, k=longitud)
     return mensaje
-
-
-
 
 
 

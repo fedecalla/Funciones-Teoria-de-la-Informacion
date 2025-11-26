@@ -1,5 +1,23 @@
 ## GUIA DE TEORIA DE LA INFORMACION
 
+Fuentes:
+
+**Informacion fuente** [_Obtiene la informacion de una fuente a partir de las probabilidades_](fuente.py#L8)
+**Informacion base N** [_Obtiene In(S)_](fuente.py#L16)
+**Entropia fuente** [_Obtiene la entropia de la fuente_](fuente.py#L26)
+**Entropia binaria** (fuente.py#L39)
+**Generar alfabeto y probabilidades** [_A partir de una cadena devuelve el alfabeto junto con sus probabilidades_](fuente.py#L53)
+**Genera palabra** [_Genera palabra basandose en probabilidades_](fuente.py#L70)
+**Extension orden N** [_Genera la extension de orden N de una fuente_](fuente.py#L82)
+**Entropia fuente de Markov** [_Consigue la entropia de una fuente de markov_](fuente.py#L107)
+
+Matriz de transicion:
+
+**Vector Estacionario** [_Genera el vector estacionario_](matrizTransicion.py#L12)
+**Genera matriz de transicion** [_Genera la matriz de transicion_](matrizTransicion.py#L37)
+**Genera palabra** [_Genera palabra a partir de la matriz de transicion_](matrizTransicion.py#L67)
+**Memoria nula** [_Determina si la fuente es de memoria nula_](matrizTransicion.py#L89)
+
 Canales:
 
 **Matriz del canal** [_Genera la matriz del canal partiendo de una cadena de entrada y una de salida_](canales.py#L18)
@@ -26,21 +44,29 @@ Canales:
 **Probabilidad de error** [_Calcula la probabilidad de error (Pe) aplicando la regla de decisión de máxima posibilidad_](canales.py#L689)
 
 Codigos:
-
-**1er Teorema Shannon-Fano** [_Verifica si un codigo cumple el primer teorema de Shannon_](codigos.py#L148)
-**Codigo de Huffman** [_Genera un codigo de Huffman basandose en las probabilidades_](codigos.py#L178)
-**Codigo de Shannon-Fano** [_Genera códigos binarios para cada símbolo usando el algoritmo de Shannon–Fano_](codigos.py#L226)
-**Genera msg codificado** [_Genera un bytearray que contiene el mensaje codificado_](codigos.py#L287)
-**Decodifica mensaje** [_Dada una secuencia de bytes, decodifica y retorna el mensaje original_](codigos.py#L318)
-**Tasa de compresion** [_Tasa de compresion = N:1_](codigos.py#L351)
-**Compresion RLC** [_Comprime un mensaje usando RLC y devuelve un bytearray_](codigos.py#L369)
-**Distancia de Hamming** [_Devuelve la distancia de Hamming (minima) entre las cadenas (caracteres codificados) de una lista_](codigos.py#L415)
-**Errores detectables** [_Devuelve la cantidad de errores detectables_](codigos.py#L437)
-**Errores corregibles** [_Devuelve la cantidad de errores corregibles_](codigos.py#L441)
-**ASCII con paridad** [_Retorna un byte que represente el código ASCII (7 bits) y utilice el bit menos significativo para almacenar la paridad del código_](codigos.py#L456)
-**Byte con errores** [_detecta si un byte con paridad tiene un error de 1 bit_](codigos.py#L487)
-**Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L538)
-**Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L613)
+**Es no singular** [_Determinar si todas las palabras del código son únicas_](codigos.py#L11)
+**Es instantaneo** [_Determina si un codigo es instantaneo_](codigos.py#L35)
+**Es univoco** [_Determina si un codigo es univocamente decodificable_](codigos.py#L60)
+**Get alfabeto Codigo** [_Obtiene el alfabeto codigo a partir de palabras_](codigos.py#L106)
+**Get longitudes** [_Obtiene las longitudes de las palabras codigo_](codigos.py#L119)
+**Inecuacion de Kraft** [_verifica si un codigo cumple la inecuacion de kraft_](codigos.py#L131)
+**Longitud media** [_Devuelve la longitud media de un codigo_](codigos.py#L151)
+**Es compacto** [_determina si un codigo es compacto_](codigos.py#L168)
+**Genera Mensaje** [_Genera mensaje codigo_](codigos.py#L182)
+**1er Teorema Shannon-Fano** [_Verifica si un codigo cumple el primer teorema de Shannon_](codigos.py#L197)
+**Codigo de Huffman** [_Genera un codigo de Huffman basandose en las probabilidades_](codigos.py#L227)
+**Codigo de Shannon-Fano** [_Genera códigos binarios para cada símbolo usando el algoritmo de Shannon–Fano_](codigos.py#L275)
+**Genera msg codificado** [_Genera un bytearray que contiene el mensaje codificado_](codigos.py#L336)
+**Decodifica mensaje** [_Dada una secuencia de bytes, decodifica y retorna el mensaje original_](codigos.py#L367)
+**Tasa de compresion** [_Tasa de compresion = N:1_](codigos.py#L400)
+**Compresion RLC** [_Comprime un mensaje usando RLC y devuelve un bytearray_](codigos.py#L426)
+**Distancia de Hamming** [_Devuelve la distancia de Hamming (minima) entre las cadenas (caracteres codificados) de una lista_](codigos.py#L464)
+**Errores detectables** [_Devuelve la cantidad de errores detectables_](codigos.py#L486)
+**Errores corregibles** [_Devuelve la cantidad de errores corregibles_](codigos.py#L490)
+**ASCII con paridad** [_Retorna un byte que represente el código ASCII (7 bits) y utilice el bit menos significativo para almacenar la paridad del código_](codigos.py#L505)
+**Byte con errores** [_detecta si un byte con paridad tiene un error de 1 bit_](codigos.py#L536)
+**Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L587)
+**Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L662)
 
 **Apuntes:**
 
