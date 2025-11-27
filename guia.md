@@ -67,6 +67,7 @@ Codigos:
 **Byte con errores** [_detecta si un byte con paridad tiene un error de 1 bit_](codigos.py#L536)
 **Codifica con paridades** [_Dada una cadena de caracteres, generar una secuencia de bytes (bytearray) que contenga su representación con código ASCII y sus bits de paridad vertical, longitudinal y cruzada._](codigos.py#L587)
 **Decodifica con paridades** [_verifica si el conjunto tiene errores_](codigos.py#L662)
+**Rendimiento y redundancia del codigo** [_Rendimiento (η) y Redundancia (R)_](codigos.py#L707)
 
 **Apuntes:**
 

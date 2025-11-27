@@ -703,3 +703,10 @@ def decodifica_con_paridades(data):
     return mensaje
 
 
+
+# El rendimiento/eficiencia de un codigo se define como la division entre la entropia de la fuente sobre la longitud media del codigo. La redundancia del codigo se define como 1 - la eficiencia del mismo.
+def rendimientoCodigo(probabilidades, palabras_codigo):
+    return entropiaFuente(probabilidades, informacionBaseN(probabilidades, getr(palabras_codigo))) / longitudMedia(palabras_codigo, probabilidades)
+
+def redundanciaCodigo(probabilidades, palabras_codigo):
+    return 1 - rendimientoCodigo(probabilidades, palabras_codigo)
