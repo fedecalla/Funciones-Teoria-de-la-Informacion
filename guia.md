@@ -42,6 +42,7 @@ Canales:
 **Capacidad Uniforme** [_Calcula la capacidad de un canal uniforme (C)_](canales.py#L610)
 **Capacidad Binaria** [_Estima la capacidad de un canal binario (C)_](canales.py#L631)
 **Probabilidad de error** [_Calcula la probabilidad de error (Pe) aplicando la regla de decisión de máxima posibilidad_](canales.py#L689)
+**Segundo teorema de Shannon** [_límite teórico de mensajes distintos_](canales.py#L737)
 
 Codigos:
 **Es no singular** [_Determinar si todas las palabras del código son únicas_](codigos.py#L11)

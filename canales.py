@@ -726,6 +726,37 @@ def prob_error_max(prob_priori, matriz_canal):
     return p_error
 
 
+
+#  Calcula el límite teórico de mensajes distintos (M) que se pueden transmitir con una probabilidad de error arbitrariamente pequeña.
+# c = capacidad del canal
+# n = longitud del bloque (cantidad de simbolos extendidos)
+# epsilon = numero arbitrariamente pequeño > 0
+# devuelve m = cantidad de mensajes posibles (palabras del codigo)
+# bits_info = cantidad de bits de informacion puros en el bloque
+
+def segundo_teorema_shannon(C, n, epsilon=0.001):
+    
+    # Cálculo del exponente: n * (C - epsilon)
+    # Esto representa la "Información Total" libre de error en el bloque
+    bits_info = n * (C - epsilon)
+    
+    # Cálculo de M = 2^(bits_info)
+    try:
+        M = math.pow(2, bits_info)
+    except OverflowError:
+        M = float('inf') # El número es tan grande que Python no lo representa
+        
+    return M, bits_info
+
+
+
+
+
+
+
+
+
+
 priors = [4/15, 3/15, 8/15]
 canal = [[0.6,0.3,0.1],[0.1, 0.8, 0.1], [0.3, 0.3, 0.4]]
 print(prob_error_max(priors, canal))

@@ -56,7 +56,6 @@ def generaMat(cadena):
 
 
 
-
 # Genera una palabra de longitud dada a partir de un alfabeto y sus matriz de transición
 # Elige el primer símbolo del mensaje al azar, busca en la matriz la fila correspondiente a la letra actual. Esa fila contiene las probabilidades condicionales específicas para el siguiente paso.
 # Si llegamos a un estado "pozo" (un símbolo que apareció al final del texto de entrenamiento pero nunca en el medio, por lo que no tiene transiciones salientes), la suma de su fila sería 0.
@@ -98,3 +97,20 @@ def esMemoriaNula(matriz, tolerancia):
             j += 1
         i += 1
     return verifica
+
+
+
+
+def printMat(matriz):
+    i = len(matriz)
+    j = len(matriz[0])
+    for x in range(i):
+        for y in range(j):
+            print(f"{matriz[y][x]:.4f}", end=" ")
+        print()
+
+
+
+alf, mat = generaMat("-+-+*//++///*/-////+---////-+/+--+-+/-/+-+/-+*++//")
+print(alf)
+printMat(mat)

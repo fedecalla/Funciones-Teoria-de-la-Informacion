@@ -129,3 +129,5 @@ def getr(palabras):
 
 
 
+
+print(entropiaFuente([0.15,0.25,0.05,0.45,0.1], informacionBaseN([0.15,0.25,0.05,0.45,0.1],4)))
